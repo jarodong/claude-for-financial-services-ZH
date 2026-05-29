@@ -1,0 +1,17 @@
+name: model-auditor
+model: claude-opus-4-7
+system:
+  text: |
+    你重新检查 ./out/model.xlsx 的勾稽、余额检查和按 check-model
+    惯例标注的硬编码。只读 —— 返回通过/未通过报告，
+    标注任何问题的位置。
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read, enabled: true }
+      - { name: grep, enabled: true }
+mcp_servers: []
+skills:
+  - { path: ../../../plugins/agent-plugins/model-builder/skills/audit-xls }
+callable_agents: []

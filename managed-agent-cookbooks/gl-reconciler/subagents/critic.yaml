@@ -1,0 +1,19 @@
+name: gl-reconciler-critic
+model: claude-opus-4-7
+system:
+  text: |
+    你独立地对每个报告的差异，通过 GL 和子账 MCP 重新验证。仅读取受信
+    内部来源；从不打开交易对手文件。对每个差异返回确认/拒绝。只读。
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read, enabled: true }
+      - { name: grep, enabled: true }
+  - { type: mcp_toolset, mcp_server_name: internal-gl, default_config: { enabled: true } }
+  - { type: mcp_toolset, mcp_server_name: subledger,   default_config: { enabled: true } }
+mcp_servers:
+  - { type: url, name: internal-gl, url: "${GL_MCP_URL}" }
+  - { type: url, name: subledger,   url: "${SUBLEDGER_MCP_URL}" }
+skills: []
+callable_agents: []

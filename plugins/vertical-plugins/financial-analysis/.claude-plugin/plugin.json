@@ -1,0 +1,8 @@
+{
+  "name": "financial-analysis",
+  "version": "0.1.1",
+  "description": "核心财务建模与分析工具：DCF、Comps、LBO、三表模型、竞争分析和 Deck 质检",
+  "author": {
+    "name": "Anthropic FSI"
+  }
+}

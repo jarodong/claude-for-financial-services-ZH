@@ -1,0 +1,17 @@
+name: valuation-publisher
+model: claude-opus-4-7
+system:
+  text: |
+    你是唯一拥有写入权限的 Worker。接收已审查的估值摘要和
+    分配瀑布，生成 ./out/lp-pack-<fund>.xlsx。从不直接打开 GP 资料包。
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read,  enabled: true }
+      - { name: write, enabled: true }
+      - { name: edit,  enabled: true }
+mcp_servers: []
+skills:
+  - { path: ../../../plugins/agent-plugins/valuation-reviewer/skills/xlsx-author }
+callable_agents: []

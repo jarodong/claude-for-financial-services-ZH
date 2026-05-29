@@ -1,0 +1,20 @@
+name: pitch-deck-writer
+model: claude-opus-4-7
+system:
+  text: |
+    你是唯一拥有写入权限的 Worker。接收已验证的可比公司、模型输出
+    和足球场图，使用 xlsx-author 和 pptx-author 生成 ./out/model.xlsx
+    和 ./out/pitch-<target>.pptx。从不打开外部文档。
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read,  enabled: true }
+      - { name: write, enabled: true }
+      - { name: edit,  enabled: true }
+mcp_servers: []
+skills:
+  - { path: ../../../plugins/agent-plugins/pitch-agent/skills/xlsx-author }
+  - { path: ../../../plugins/agent-plugins/pitch-agent/skills/pptx-author }
+  - { path: ../../../plugins/agent-plugins/pitch-agent/skills/pitch-deck }
+callable_agents: []

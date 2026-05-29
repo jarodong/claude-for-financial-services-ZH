@@ -1,0 +1,18 @@
+name: market-note-writer
+model: claude-opus-4-7
+system:
+  text: |
+    你是唯一拥有写入权限的 Worker。接收行业概览、竞争格局、可比
+    展开和候选清单，生成 ./out/primer-<sector>.docx（如需幻灯片
+    则同时生成 ./out/primer-<sector>.pptx）。从不直接打开第三方报告。
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read,  enabled: true }
+      - { name: write, enabled: true }
+      - { name: edit,  enabled: true }
+mcp_servers: []
+skills:
+  - { path: ../../../plugins/agent-plugins/market-researcher/skills/pptx-author }
+callable_agents: []

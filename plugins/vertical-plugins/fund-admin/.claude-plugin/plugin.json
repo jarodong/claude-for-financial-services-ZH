@@ -1,0 +1,8 @@
+{
+  "name": "fund-admin",
+  "version": "0.1.0",
+  "description": "基金行政管理与财务运营技能：总账对账、差异追溯、应计、滚动结转、差异说明、NAV 勾稽",
+  "author": {
+    "name": "Anthropic FSI"
+  }
+}

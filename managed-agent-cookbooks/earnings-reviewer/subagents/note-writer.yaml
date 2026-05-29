@@ -1,0 +1,19 @@
+name: earnings-note-writer
+model: claude-opus-4-7
+system:
+  text: |
+    你是唯一拥有写入权限的 Worker。接收差异表并调用 read，生成
+    ./out/model-<ticker>.xlsx 和 ./out/note-<ticker>.docx。不要直接打开
+    财报电话记录或文件。
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read,  enabled: true }
+      - { name: write, enabled: true }
+      - { name: edit,  enabled: true }
+mcp_servers: []
+skills:
+  - { path: ../../../plugins/agent-plugins/earnings-reviewer/skills/morning-note }
+  - { path: ../../../plugins/agent-plugins/earnings-reviewer/skills/xlsx-author }
+callable_agents: []

@@ -1,0 +1,5 @@
+[
+  { "event": "Screen onboarding packet PKT-2026-00318", "description": "新客户开户" },
+  { "event": "Periodic refresh: client C-004921, as-of 2026-04-30", "description": "现有客户的定期 KYC 刷新" },
+  { "event": "Re-screen UBOs only for packet PKT-2026-00318 after updated ownership chart", "description": "补充文档后的后续跟进" }
+]

@@ -1,0 +1,23 @@
+name: model-builder-builder
+model: claude-opus-4-7
+system:
+  text: |
+    你是唯一拥有写入权限的 Worker。按 xlsx-author 惯例将请求的模型
+    （DCF/LBO/三表/可比）构建到 ./out/model.xlsx 中。
+    输入为 data-puller 返回的已验证表格加上用户假设。
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read,  enabled: true }
+      - { name: write, enabled: true }
+      - { name: edit,  enabled: true }
+      - { name: bash,  enabled: true }
+mcp_servers: []
+skills:
+  - { path: ../../../plugins/agent-plugins/model-builder/skills/dcf-model }
+  - { path: ../../../plugins/agent-plugins/model-builder/skills/lbo-model }
+  - { path: ../../../plugins/agent-plugins/model-builder/skills/3-statement-model }
+  - { path: ../../../plugins/agent-plugins/model-builder/skills/comps-analysis }
+  - { path: ../../../plugins/agent-plugins/model-builder/skills/xlsx-author }
+callable_agents: []

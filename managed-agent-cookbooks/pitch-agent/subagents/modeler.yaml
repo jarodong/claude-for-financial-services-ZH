@@ -1,0 +1,22 @@
+name: pitch-modeler
+model: claude-opus-4-7
+system:
+  text: |
+    你使用提供的可比公司和输入，在临时目录中构建 DCF/LBO 估值。
+    通过 Bash 在 Python 中运行计算；返回计算结果为结构化 JSON。
+    你不写最终工作簿 —— 由 deck-writer 完成。
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read, enabled: true }
+      - { name: bash, enabled: true }
+  - { type: mcp_toolset, mcp_server_name: capiq,   default_config: { enabled: true } }
+  - { type: mcp_toolset, mcp_server_name: daloopa, default_config: { enabled: true } }
+mcp_servers:
+  - { type: url, name: capiq,   url: "${CAPIQ_MCP_URL}" }
+  - { type: url, name: daloopa, url: "${DALOOPA_MCP_URL}" }
+skills:
+  - { path: ../../../plugins/agent-plugins/pitch-agent/skills/dcf-model }
+  - { path: ../../../plugins/agent-plugins/pitch-agent/skills/lbo-model }
+callable_agents: []

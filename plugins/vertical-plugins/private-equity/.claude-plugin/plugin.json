@@ -1,0 +1,8 @@
+{
+  "name": "private-equity",
+  "version": "0.1.2",
+  "description": "私募股权项目搜寻与工作流工具：企业发现、CRM 集成及创始人触达",
+  "author": {
+    "name": "Anthropic FSI"
+  }
+}

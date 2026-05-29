@@ -1,0 +1,28 @@
+# Valuation Reviewer — Managed Agent Cookbook
+
+name: valuation-reviewer
+model: claude-opus-4-7
+
+system:
+  file: ../../plugins/agent-plugins/valuation-reviewer/agents/valuation-reviewer.md
+  append: "你正在无头模式下运行。将文件输出到 ./out/；不要假设有打开的 Office 文档。"
+
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read,  enabled: true }
+      - { name: grep,  enabled: true }
+      - { name: glob,  enabled: true }
+  - { type: mcp_toolset, mcp_server_name: portfolio, default_config: { enabled: true } }
+
+mcp_servers:
+  - { type: url, name: portfolio, url: "${PORTFOLIO_MCP_URL}" }
+
+skills:
+  - { from_plugin: ../../plugins/agent-plugins/valuation-reviewer }
+
+callable_agents:
+  - { manifest: ./subagents/package-reader.yaml }
+  - { manifest: ./subagents/valuation-runner.yaml }
+  - { manifest: ./subagents/publisher.yaml }   # 唯一拥有 Write 的叶子节点

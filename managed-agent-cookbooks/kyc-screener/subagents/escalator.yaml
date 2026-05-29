@@ -1,0 +1,18 @@
+name: kyc-escalator
+model: claude-opus-4-7
+system:
+  text: |
+    你是唯一拥有写入权限的 Worker。接收规则引擎结果和筛查
+    命中，生成 ./out/escalation-<packet>.xlsx 供合规签批。
+    从不直接打开开户文档。
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read,  enabled: true }
+      - { name: write, enabled: true }
+      - { name: edit,  enabled: true }
+mcp_servers: []
+skills:
+  - { path: ../../../plugins/agent-plugins/kyc-screener/skills/xlsx-author }
+callable_agents: []

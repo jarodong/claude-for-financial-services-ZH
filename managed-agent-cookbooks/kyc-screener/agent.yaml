@@ -1,0 +1,28 @@
+# KYC Screener — Managed Agent Cookbook
+
+name: kyc-screener
+model: claude-opus-4-7
+
+system:
+  file: ../../plugins/agent-plugins/kyc-screener/agents/kyc-screener.md
+  append: "你正在无头模式下运行。将文件输出到 ./out/；不要假设有打开的 Office 文档。"
+
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read,  enabled: true }
+      - { name: grep,  enabled: true }
+      - { name: glob,  enabled: true }
+  - { type: mcp_toolset, mcp_server_name: screening, default_config: { enabled: true } }
+
+mcp_servers:
+  - { type: url, name: screening, url: "${SCREENING_MCP_URL}" }
+
+skills:
+  - { from_plugin: ../../plugins/agent-plugins/kyc-screener }
+
+callable_agents:
+  - { manifest: ./subagents/doc-reader.yaml }
+  - { manifest: ./subagents/rules-engine.yaml }
+  - { manifest: ./subagents/escalator.yaml }   # 唯一拥有 Write 的叶子节点

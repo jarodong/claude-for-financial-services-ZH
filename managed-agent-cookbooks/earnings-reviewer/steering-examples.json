@@ -1,0 +1,5 @@
+[
+  { "event": "Process earnings: NVDA Q1-FY27", "description": "单 Ticker，单期间" },
+  { "event": "Process earnings: coverage-list semis, period Q1-FY27", "description": "对覆盖列表进行扇出（编排层迭代）" },
+  { "event": "Update model only: NVDA Q1-FY27, skip note", "description": "分析师自己写研报时的后续操作" }
+]

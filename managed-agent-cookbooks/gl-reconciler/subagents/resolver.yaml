@@ -1,0 +1,18 @@
+name: gl-reconciler-resolver
+model: claude-opus-4-7
+system:
+  text: |
+    你是唯一拥有写入权限的 Worker。接收已验证的差异集（已经过 critic 检查
+    和 schema 验证），起草异常报告，写入 ./out/。从不读取交易对手文件；
+    从不运行 bash。
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read,  enabled: true }
+      - { name: write, enabled: true }
+      - { name: edit,  enabled: true }
+mcp_servers: []
+skills:
+  - { path: ../../../plugins/agent-plugins/gl-reconciler/skills/xlsx-author }
+callable_agents: []

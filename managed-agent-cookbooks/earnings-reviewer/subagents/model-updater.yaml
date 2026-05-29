@@ -1,0 +1,20 @@
+name: earnings-model-updater
+model: claude-opus-4-7
+system:
+  text: |
+    你将验证后的实际数据放入覆盖模型并滚动预测，使用 FactSet/Daloopa
+    获取一致预期。仅读取受信来源。返回差异表；你不写最终文件。
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read, enabled: true }
+      - { name: grep, enabled: true }
+  - { type: mcp_toolset, mcp_server_name: factset, default_config: { enabled: true } }
+  - { type: mcp_toolset, mcp_server_name: daloopa, default_config: { enabled: true } }
+mcp_servers:
+  - { type: url, name: factset, url: "${FACTSET_MCP_URL}" }
+  - { type: url, name: daloopa, url: "${DALOOPA_MCP_URL}" }
+skills:
+  - { path: ../../../plugins/agent-plugins/earnings-reviewer/skills/model-update }
+callable_agents: []

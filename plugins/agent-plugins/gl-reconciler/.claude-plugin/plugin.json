@@ -1,0 +1,8 @@
+{
+  "name": "gl-reconciler",
+  "version": "0.1.0",
+  "description": "发现差异、追溯根因、路由签署",
+  "author": {
+    "name": "Anthropic FSI"
+  }
+}

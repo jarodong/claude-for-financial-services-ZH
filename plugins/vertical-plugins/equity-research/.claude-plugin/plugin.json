@@ -1,0 +1,8 @@
+{
+  "name": "equity-research",
+  "version": "0.1.2",
+  "description": "股票研究工具：盈利分析、首次覆盖报告及研究工作流",
+  "author": {
+    "name": "Anthropic FSI"
+  }
+}

@@ -1,0 +1,33 @@
+# Earnings Reviewer — Managed Agent Cookbook
+#
+# `POST /v1/agents` 的部署清单。字段名与 API 匹配；部署脚本在 POST 前
+# 解析 {file:} / {path:} / {manifest:} 引用。清单→API 映射见 ../README.md。
+
+name: earnings-reviewer
+model: claude-opus-4-7
+
+system:
+  file: ../../plugins/agent-plugins/earnings-reviewer/agents/earnings-reviewer.md
+  append: "You are running headless. Produce files in ./out/; do not assume an open Office document."
+
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read,  enabled: true }
+      - { name: grep,  enabled: true }
+      - { name: glob,  enabled: true }
+  - { type: mcp_toolset, mcp_server_name: factset, default_config: { enabled: true } }
+  - { type: mcp_toolset, mcp_server_name: daloopa, default_config: { enabled: true } }
+
+mcp_servers:
+  - { type: url, name: factset, url: "${FACTSET_MCP_URL}" }
+  - { type: url, name: daloopa, url: "${DALOOPA_MCP_URL}" }
+
+skills:
+  - { from_plugin: ../../plugins/agent-plugins/earnings-reviewer }
+
+callable_agents:
+  - { manifest: ./subagents/transcript-reader.yaml }
+  - { manifest: ./subagents/model-updater.yaml }
+  - { manifest: ./subagents/note-writer.yaml }   # 唯一拥有 Write 的叶子节点

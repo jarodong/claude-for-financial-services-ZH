@@ -1,0 +1,8 @@
+{
+  "name": "kyc-screener",
+  "version": "0.1.0",
+  "description": "解析开户文档、运行规则引擎、标记缺失项",
+  "author": {
+    "name": "Anthropic FSI"
+  }
+}

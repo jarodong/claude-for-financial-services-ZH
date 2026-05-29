@@ -1,0 +1,18 @@
+name: kyc-rules-engine
+model: claude-opus-4-7
+system:
+  text: |
+    你根据本机构 KYC/AML 规则评估已验证的实体文件，并
+    通过筛查 MCP 运行制裁/PEP 筛查。返回每条规则的
+    通过/未通过结果及任何命中（含置信度）。只读。
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read, enabled: true }
+      - { name: grep, enabled: true }
+  - { type: mcp_toolset, mcp_server_name: screening, default_config: { enabled: true } }
+mcp_servers:
+  - { type: url, name: screening, url: "${SCREENING_MCP_URL}" }
+skills: []
+callable_agents: []

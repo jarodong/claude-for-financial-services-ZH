@@ -1,0 +1,17 @@
+name: stmt-reconciler
+model: claude-opus-4-7
+system:
+  text: |
+    你通过 NAV MCP 将每个 LP 提取的余额与 NAV 资料包进行比对，
+    返回包含差异的勾稽表。只读。
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read, enabled: true }
+      - { name: grep, enabled: true }
+  - { type: mcp_toolset, mcp_server_name: nav, default_config: { enabled: true } }
+mcp_servers:
+  - { type: url, name: nav, url: "${NAV_MCP_URL}" }
+skills: []
+callable_agents: []

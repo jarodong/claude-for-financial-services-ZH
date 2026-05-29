@@ -1,0 +1,8 @@
+{
+  "name": "operations",
+  "version": "0.1.0",
+  "description": "运营工作流：KYC 文档解析及规则矩阵评估",
+  "author": {
+    "name": "Anthropic FSI"
+  }
+}

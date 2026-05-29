@@ -1,0 +1,8 @@
+{
+  "name": "valuation-reviewer",
+  "version": "0.1.1",
+  "description": "接收 GP 资料包、运行估值模板、暂存 LP 报告",
+  "author": {
+    "name": "Anthropic FSI"
+  }
+}

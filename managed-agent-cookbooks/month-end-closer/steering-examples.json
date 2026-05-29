@@ -1,0 +1,5 @@
+[
+  { "event": "Close entity US-OPCO for period 2026-04", "description": "标准月末结账" },
+  { "event": "Close entity UK-HOLDCO for period 2026-03, scope: accruals only", "description": "部分结账，仅应计" },
+  { "event": "Re-draft variance commentary for entity US-OPCO 2026-04 after late JEs", "description": "调整过账后的后续跟进" }
+]

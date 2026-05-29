@@ -1,0 +1,108 @@
+{
+  "name": "claude-for-financial-services",
+  "owner": {
+    "name": "Matt Piccolella"
+  },
+  "plugins": [
+    {
+      "name": "financial-analysis",
+      "source": "./plugins/vertical-plugins/financial-analysis",
+      "description": "核心财务建模与分析工具：DCF、可比公司、LBO、三表模型、竞争分析和 Deck 质检"
+    },
+    {
+      "name": "investment-banking",
+      "source": "./plugins/vertical-plugins/investment-banking",
+      "description": "投行业务效率工具——客户与市场洞察、Deck 制作、财务分析和交易管理"
+    },
+    {
+      "name": "equity-research",
+      "source": "./plugins/vertical-plugins/equity-research",
+      "description": "股票研究工具：财报分析、首次覆盖报告和研究工作流"
+    },
+    {
+      "name": "private-equity",
+      "source": "./plugins/vertical-plugins/private-equity",
+      "description": "PE 项目源与工作流工具：公司发现、CRM 集成和创始人对接"
+    },
+    {
+      "name": "wealth-management",
+      "source": "./plugins/vertical-plugins/wealth-management",
+      "description": "财富管理与财务顾问工具：客户回顾、财务规划、组合分析和客户报告"
+    },
+    {
+      "name": "fund-admin",
+      "source": "./plugins/vertical-plugins/fund-admin",
+      "description": "基金行政与财务运营：总账核对、差异追踪、计提、结转、差异备注、NAV 轧差"
+    },
+    {
+      "name": "operations",
+      "source": "./plugins/vertical-plugins/operations",
+      "description": "运营工作流：KYC 文档解析和规则引擎评估"
+    },
+    {
+      "name": "pitch-agent",
+      "source": "./plugins/agent-plugins/pitch-agent",
+      "description": "从可比公司、可比交易、LBO 到品牌 Pitch Deck，端到端完成"
+    },
+    {
+      "name": "market-researcher",
+      "source": "./plugins/agent-plugins/market-researcher",
+      "description": "从行业或主题到行业概览、竞争格局、同业可比和投资标的清单"
+    },
+    {
+      "name": "earnings-reviewer",
+      "source": "./plugins/agent-plugins/earnings-reviewer",
+      "description": "从财报电话会和公告到模型更新到研报草稿"
+    },
+    {
+      "name": "meeting-prep-agent",
+      "source": "./plugins/agent-plugins/meeting-prep-agent",
+      "description": "每次客户会议前的简报材料包"
+    },
+    {
+      "name": "model-builder",
+      "source": "./plugins/agent-plugins/model-builder",
+      "description": "DCF、LBO、三表模型、可比公司——在 Excel 中实时构建"
+    },
+    {
+      "name": "gl-reconciler",
+      "source": "./plugins/agent-plugins/gl-reconciler",
+      "description": "发现差异、追溯根因、路由签核"
+    },
+    {
+      "name": "kyc-screener",
+      "source": "./plugins/agent-plugins/kyc-screener",
+      "description": "解析开户文档、运行规则引擎、标记缺失项"
+    },
+    {
+      "name": "valuation-reviewer",
+      "source": "./plugins/agent-plugins/valuation-reviewer",
+      "description": "接收 GP 材料包、运行估值模板、生成 LP 报告"
+    },
+    {
+      "name": "month-end-closer",
+      "source": "./plugins/agent-plugins/month-end-closer",
+      "description": "计提、结转、差异备注"
+    },
+    {
+      "name": "statement-auditor",
+      "source": "./plugins/agent-plugins/statement-auditor",
+      "description": "在分发前审计已生成的 LP 报表"
+    },
+    {
+      "name": "lseg",
+      "source": "./plugins/partner-built/lseg",
+      "description": "使用 LSEG 金融数据和分析工具进行债券定价、收益率曲线分析、外汇套利交易、期权估值和宏观仪表盘构建。"
+    },
+    {
+      "name": "sp-global",
+      "source": "./plugins/partner-built/spglobal",
+      "description": "S&P Global——金融数据和分析技能，包括公司概况、财报预览和交易摘要"
+    },
+    {
+      "name": "claude-for-msft-365-install",
+      "source": "./claude-for-msft-365-install",
+      "description": "为 Claude Office 加载项配置直连云端（Vertex AI、Bedrock 或 LLM 网关）。生成自定义清单文件、引导 Azure 管理员授权，并通过 Microsoft Graph 扩展属性写入用户级配置。"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "investment-banking",
+  "version": "0.2.1",
+  "description": "投行业务提效工具：客户与市场洞察、材料制作、财务分析及交易管理",
+  "author": {
+    "name": "Anthropic"
+  }
+}

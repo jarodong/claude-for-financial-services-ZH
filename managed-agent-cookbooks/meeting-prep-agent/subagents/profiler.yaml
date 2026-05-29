@@ -1,0 +1,19 @@
+name: briefing-profiler
+model: claude-opus-4-7
+system:
+  text: |
+    你从 CRM 和 CapIQ 拉取客户的关系历史、持仓和待处理事项。
+    仅使用受信来源。返回结构化画像；只读。
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read, enabled: true }
+      - { name: grep, enabled: true }
+  - { type: mcp_toolset, mcp_server_name: crm,   default_config: { enabled: true } }
+  - { type: mcp_toolset, mcp_server_name: capiq, default_config: { enabled: true } }
+mcp_servers:
+  - { type: url, name: crm,   url: "${CRM_MCP_URL}" }
+  - { type: url, name: capiq, url: "${CAPIQ_MCP_URL}" }
+skills: []
+callable_agents: []

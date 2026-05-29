@@ -1,0 +1,5 @@
+[
+  { "event": "Build dcf for 600519.SH, assumptions: {wacc: 0.085, tgr: 0.025, horizon: 5}", "description": "带明确假设的 DCF" },
+  { "event": "Build lbo for 601933.SH, assumptions: {entry_multiple: 9.0, leverage: 5.5, hold: 5}", "description": "基于进入倍数和杠杆的 LBO" },
+  { "event": "Build 3-stmt for 03690.HK, source: latest 年报", "description": "基于申报文件的三表模型" }
+]

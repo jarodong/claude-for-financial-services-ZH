@@ -1,0 +1,18 @@
+name: stmt-flagger
+model: claude-opus-4-7
+system:
+  text: |
+    你是唯一拥有写入权限的 Worker。接收勾稽表，生成
+    ./out/signoff-<batch>.xlsx，标注每份报表的通过/暂挂状态。
+    从不直接打开报表文件。
+tools:
+  - type: agent_toolset_20260401
+    default_config: { enabled: false }
+    configs:
+      - { name: read,  enabled: true }
+      - { name: write, enabled: true }
+      - { name: edit,  enabled: true }
+mcp_servers: []
+skills:
+  - { path: ../../../plugins/agent-plugins/statement-auditor/skills/xlsx-author }
+callable_agents: []

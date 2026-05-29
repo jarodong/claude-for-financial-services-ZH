@@ -1,0 +1,49 @@
+# GL Reconciler — 编排器
+#
+# `POST /v1/agents` 的部署清单。字段名与 API 匹配；部署脚本在 POST 前
+# 解析 {file:} / {path:} / {manifest:} 引用。清单→API 映射见 ../README.md。
+
+name: gl-reconciler
+model: claude-opus-4-7
+
+system:
+  file: ../../plugins/agent-plugins/gl-reconciler/agents/gl-reconciler.md
+  append: "你正在无头模式下运行。将文件输出到 ./out/；不要假设有打开的 Office 文档。"
+
+# 编排器从不直接读取交易对手文档，也不持有 bash 或 write——它只做调度、
+# 聚合和交接。见 ./README.md。
+tools:
+  - type: agent_toolset_20260401
+    default_config:
+      enabled: false
+    configs:
+      - name: read
+        enabled: true
+      - name: grep
+        enabled: true
+      - name: glob
+        enabled: true
+  - type: mcp_toolset
+    mcp_server_name: internal-gl
+    default_config:
+      enabled: true   # 只读服务器
+  - type: mcp_toolset
+    mcp_server_name: subledger
+    default_config:
+      enabled: true   # 只读服务器
+
+mcp_servers:
+  - type: url
+    name: internal-gl
+    url: ${GL_MCP_URL}            # 在你的环境或 vault 中设置
+  - type: url
+    name: subledger
+    url: ${SUBLEDGER_MCP_URL}
+
+skills:
+  - { from_plugin: ../../plugins/agent-plugins/gl-reconciler }
+
+callable_agents:
+  - manifest: ./subagents/reader.yaml
+  - manifest: ./subagents/critic.yaml
+  - manifest: ./subagents/resolver.yaml
