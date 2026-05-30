@@ -2,7 +2,7 @@
 
 基于 [Anthropic `financial-services`](https://github.com/anthropics/financial-services) 仓库的中文汉化+本土化版本。
 
-为最常见的金融工作流——投行、权益研究、私募股权和财富管理——提供的参考 Agent、Skill 和数据连接器。
+为最常见的金融工作流——投行、权益研究、私募股权和财富管理——提供参考 Agent（智能体）、Skill（技能）和 MCP（模型上下文协议）数据连接器。
 
 > [!IMPORTANT]
 > 本仓库不构成投资、法律、税务或会计建议。这些 Agent 起草分析师工作成果——模型、备忘录、研究报告、对账表——供专业人士审查。它们不做出投资建议、执行交易、承担风险、记入账簿或审批准入；所有输出均需人工签字确认。你有责任验证输出内容，并确保符合你所在公司适用的法律法规。
@@ -34,7 +34,7 @@ pip install -r requirements.txt  # 如有
 ```
 # 直接使用已注册的 Skill（需先将 skill 目录复制到 ~/.claude/skills/）
 # 示例：搭建 DCF 模型
-帮我搭一个贵州茅台的 DCF 模型
+帮我搭一个贵州茅台的 DCF（折现现金流估值法）模型
 
 # 示例：行业研究
 帮我研究一下中国精神神经类药物行业
@@ -93,28 +93,28 @@ scripts/deploy-managed-agent.sh gl-reconciler
 
 | 职能 | Agent | 功能 |
 |---|---|---|
-| **覆盖与咨询** | **Pitch Agent** | Comps、Precedents、LBO → 品牌化 Pitch Deck，端到端 |
-| | **Meeting Prep Agent** | 每次客户会议前的简报包 |
-| **研究与建模** | **Market Researcher** | 行业或主题 → 行业概览、竞争格局、同行可比、投资想法候选 |
-| | **Earnings Reviewer** | 财报电话会 + 公告 → 模型更新 → 研报草稿 |
-| | **Model Builder** | DCF、LBO、三表、Comps —— 在 Excel 中实时构建 |
-| **基金行政与财务运营** | **Valuation Reviewer** | 接收 GP 材料包，运行估值模板，生成 LP 报告 |
-| | **GL Reconciler** | 发现差异，追溯根因，路由签批 |
-| | **Month-End Closer** | 计提、结转、差异分析 |
-| | **Statement Auditor** | 分配前审计 LP 报表 |
-| **运营与准入** | **KYC Screener** | 解析准入文件，运行规则引擎，标记缺失 |
+| **覆盖与咨询** | **Pitch Agent（推介材料智能体）** | Comps（可比公司分析）、Precedents（可比交易分析）、LBO（杠杆收购模型）→ 品牌化 Pitch Deck（推介材料），端到端 |
+| | **Meeting Prep Agent（会议准备智能体）** | 每次客户会议前生成简报包 |
+| **研究与建模** | **Market Researcher（市场研究智能体）** | 行业或主题 → 行业概览、竞争格局、同行可比、投资想法候选 |
+| | **Earnings Reviewer（财报复核智能体）** | 财报电话会 + 公告 → 模型更新 → 研报草稿 |
+| | **Model Builder（模型构建智能体）** | DCF（折现现金流估值法）、LBO（杠杆收购模型）、三表模型、Comps（可比公司分析）——在 Excel 中实时构建 |
+| **基金行政与财务运营** | **Valuation Reviewer（估值复核智能体）** | 接收 GP（普通合伙人）材料包，运行估值模板，生成 LP（有限合伙人）报告 |
+| | **GL Reconciler（总分类账对账智能体）** | 发现差异，追溯根因，发起签批流程 |
+| | **Month-End Closer（月末结账智能体）** | 计提、结转、差异分析 |
+| | **Statement Auditor（报表审阅智能体）** | 分配前审阅 LP（有限合伙人）报表 |
+| **运营与准入** | **KYC Screener（客户身份识别筛查智能体）** | 解析准入文件，运行规则引擎，标记缺失 |
 
 ### 垂直插件（7 个）
 
 | 插件 | 功能 |
 |---|---|
-| **financial-analysis** *（核心）* | Comps、DCF、LBO、三表、Deck 质检、Excel 审计 |
-| **investment-banking** | CIM、Teaser、流程函、买家列表、并购模型、交易跟踪 |
+| **financial-analysis** *（核心）* | Comps（可比公司分析）、DCF（折现现金流估值法）、LBO（杠杆收购模型）、三表模型、Pitch Deck（推介材料）质检、Excel 审计 |
+| **investment-banking** | CIM（保密信息备忘录）、Teaser（匿名推介材料）、流程函、买家列表、并购模型、交易跟踪 |
 | **equity-research** | 财报分析、首次覆盖、模型更新、投资论点和催化剂跟踪 |
-| **private-equity** | 项目源、筛选、尽调清单、投决会备忘录、投后监控 |
-| **wealth-management** | 客户回顾、财务规划、再平衡、报告、TLH |
-| **fund-admin** | GL 对账、差异追溯、计提、结转、差异分析、NAV 勾稽 |
-| **operations** | KYC 文件解析和规则网格评估 |
+| **private-equity** | 项目源、筛选、尽调清单、投决会备忘录（Investment Committee Memo）、投后监控 |
+| **wealth-management** | 客户回顾、财务规划、再平衡、报告、TLH（税损收割） |
+| **fund-admin** | GL（总分类账）对账、差异追溯、计提、结转、差异分析、NAV（净资产值）勾稽 |
+| **operations** | KYC（客户身份识别/了解你的客户）文件解析和规则网格评估 |
 
 ## 仓库结构
 
