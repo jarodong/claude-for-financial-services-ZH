@@ -87,7 +87,7 @@ claude --version
 在系统终端执行：
 
 ```bash
-claude plugin marketplace add <本仓库 GitHub 地址>
+claude plugin marketplace add https://github.com/jarodong/claude-for-financial-services-ZH
 ```
 
 **B. 使用本地仓库路径**
@@ -98,7 +98,7 @@ claude plugin marketplace add <本仓库 GitHub 地址>
 
 ```bash
 # 如果你熟悉 git，可以克隆仓库
-git clone <本仓库 GitHub 地址>
+git clone https://github.com/jarodong/claude-for-financial-services-ZH.git
 cd claude-for-financial-services-ZH
 ```
 

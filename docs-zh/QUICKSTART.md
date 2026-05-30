@@ -40,7 +40,7 @@
 在系统终端执行：
 
 ```bash
-claude plugin marketplace add <本仓库 GitHub 地址>
+claude plugin marketplace add https://github.com/jarodong/claude-for-financial-services-ZH
 ```
 
 如果国内网络不稳定，建议先下载到本地：
@@ -48,7 +48,7 @@ claude plugin marketplace add <本仓库 GitHub 地址>
 在系统终端执行：
 
 ```bash
-git clone <本仓库 GitHub 地址>
+git clone https://github.com/jarodong/claude-for-financial-services-ZH.git
 cd claude-for-financial-services-ZH
 claude plugin marketplace add ./
 ```
