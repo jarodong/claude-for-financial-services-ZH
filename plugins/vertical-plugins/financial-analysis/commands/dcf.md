@@ -7,6 +7,44 @@ argument-hint: "[公司名称或代码]"
 
 构建机构级 DCF 模型，使用可比公司分析为估值区间提供参考。
 
+## 开始前必须说明能力来源
+
+执行本命令时，第一段回复必须先向用户说明当前使用的能力来源：
+
+```text
+本次使用的是 Claude 金融套件中文版的 `/financial-analysis:dcf` 命令来组织 DCF 估值流程；Wind MCP / Wind MCP Skill 仅作为财务和行情数据源使用，不是使用 Wind 的 DCF Skill。
+```
+
+表述规范：
+
+- `/financial-analysis:dcf` 是斜杠命令 / Command，不要称为 `financial-analysis:dcf skill`。
+- 本命令内部可以调用本套件的 `dcf-model` Skill 和 `comps-analysis` Skill；对用户说明时应区分“入口命令”和“底层 Skill”。
+- 如需区分 Wind，只说明“本次未触发 `/tmp/wind-skills/.../dcf-model/SKILL.md`，Wind MCP / Wind MCP Skill 仅作为数据源”。不要在未读取和核实 Wind 的 `dcf-model` Skill 内容时，评价它“侧重数据接入”或“框架不如本套件完整”。
+
+如果实际触发的是 Wind 的 `dcf-model` Skill，或读取了 `/tmp/wind-skills/.../dcf-model/SKILL.md`，不要继续声称自己在使用 `/financial-analysis:dcf`。应告诉用户当前触发来源不一致，并建议重新打开 Claude Code 后使用 `/financial-analysis:dcf 公司名`。
+
+## 数据源强制规则（中国公司 / A 股）
+
+如果公司是中国上市公司或 A 股标的，**必须优先使用 Wind MCP 或 Wind MCP Skill 获取财务和市场数据**，不要先使用 Web Search。
+
+执行顺序：
+
+1. 先检查当前 Claude Code 会话是否暴露了 Wind MCP 工具；如果有，直接通过 Wind MCP 获取历史财务、行情、估值倍数、Beta、可比公司数据。
+2. 如果没有直接暴露 MCP 工具，不要仅因 `~/.claude/settings.json` 里 `mcpServers` 为空就判断 Wind 不可用；继续检查是否存在 Wind MCP Skill，例如 `~/.agents/skills/wind-mcp-skill`。
+3. 如果存在 Wind MCP Skill，优先使用其 CLI，例如在 `~/.agents/skills/wind-mcp-skill` 目录下调用 `node scripts/cli.mjs call ...` 获取：
+   - `stock_data get_stock_fundamentals`：营业收入、净利润、EBITDA、毛利率、净利率、ROE、资本支出、折旧摊销等；
+   - `stock_data get_stock_price_indicators`：股价、市值、估值倍数等；
+   - `stock_data get_risk_metrics`：Beta、波动率等风险指标。
+4. 只有在 Wind MCP / Wind MCP Skill 均不可用，或用户明确同意时，才使用 Web Search 或公开网页资料作为后备。
+
+Wind 调用纪律：
+
+- 对 A 股公司，第一批可见的数据动作必须是 Wind MCP / Wind MCP Skill，而不是 Web Search 或公开网页检索。
+- 优先使用少量、宽口径的 Wind 请求分批获取数据；不要同时启动大量 Explore agent 或并发 CLI 调用，避免命令串行显示混乱、超时和重复取数。
+- 如果 Wind CLI 超时但已经返回 `content`，先解析已返回内容；如果确实没有有效内容，只重试一次更窄的问题，再向用户说明数据缺口。
+
+如果无法调用 Wind MCP，应先向用户说明“当前没有可用 Wind MCP 数据通道”，并询问是否安装/启用 Wind MCP，或是否允许临时使用公开网页数据。不要在没有说明的情况下直接改用网页搜索。
+
 ## 工作流
 
 ### 第一步：收集公司信息
@@ -41,6 +79,15 @@ argument-hint: "[公司名称或代码]"
 4. 使用 CAPM 计算 WACC
 5. 折现现金流并计算终值
 6. 桥接至股权价值和隐含股价
+
+**Excel 模型交付硬性要求：**
+
+- 生成独立 `.xlsx` 时，Python/openpyxl 只能作为写入 Excel 的工具；DCF 估值、折现、终值、权益桥、每股价值和敏感性表必须写成 Excel 单元格公式，不能在 Python 中算好后作为静态数值写入。
+- Wind 取得的历史财务、行情、Beta、市值、债务、股份数等硬编码输入，必须在 Excel 单元格中写明来源注释。
+- 生成脚本和 Excel 文件时使用绝对路径，避免因为前面 `cd ~/.agents/skills/wind-mcp-skill` 后当前目录变化，导致脚本运行路径错误。
+- 不要无说明地安装依赖；如果缺少 openpyxl、LibreOffice 或重算脚本，应先说明缺口和替代方案。
+- 最终交付时必须说明：数据来源、Excel 文件路径、是否完成公式重算/错误检查；如果未能重算，也要明确写出“尚未完成公式重算验证”。
+- 如果对用户说“用 Python + openpyxl 生成 Excel”，必须同时说明“Python/openpyxl 只负责写入工作簿，DCF 计算在 Excel 公式中完成”。不能让用户误以为估值结果是 Python 算好后写入的静态表。
 
 **使用 Comps 为 DCF 假设提供参考：**
 
