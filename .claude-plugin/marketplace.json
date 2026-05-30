@@ -3,6 +3,9 @@
   "owner": {
     "name": "Matt Piccolella"
   },
+  "metadata": {
+    "description": "Claude 金融服务插件中文版：面向金融分析、投行、股权研究、私募股权、市场研究和模型构建的 Agent 与 Skill 套件。"
+  },
   "plugins": [
     {
       "name": "financial-analysis",
