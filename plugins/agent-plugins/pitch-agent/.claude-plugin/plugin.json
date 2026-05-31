@@ -1,7 +1,7 @@
 {
   "name": "pitch-agent",
-  "version": "0.1.1",
-  "description": "可比公司、先例交易、LBO → 品牌推介材料，端到端",
+  "version": "0.1.2",
+  "description": "可比公司、可比交易、LBO（杠杆收购模型）→ 品牌 Pitch Deck（推介材料），端到端",
   "author": {
     "name": "Anthropic FSI"
   }

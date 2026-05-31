@@ -1,7 +1,7 @@
 {
   "name": "model-builder",
-  "version": "0.1.4",
-  "description": "DCF、LBO、三表模型、可比分析 —— 在 Excel 中实时构建",
+  "version": "0.1.5",
+  "description": "DCF（折现现金流估值法）、LBO（杠杆收购模型）、三表模型、Comps（可比公司分析）——在 Excel 中实时构建",
   "author": {
     "name": "Anthropic FSI"
   }

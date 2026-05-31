@@ -72,6 +72,8 @@ def check_first_explanations(path: Path, text: str) -> list[str]:
 
 
 def check_banned_variants(path: Path, text: str) -> list[str]:
+    if path.name == 'STYLE-GUIDE.md':
+        return []
     issues = []
     for phrase, suggestion in BANNED_VARIANTS.items():
         index = text.find(phrase)

@@ -118,15 +118,15 @@ claude plugin marketplace add ./
 
 本仓库里有两类常见安装对象：
 
-- **垂直插件**：不是单个 Skill，而是按金融业务场景打包的一组 Skill、斜杠命令、hooks 和相关配置。例如 `financial-analysis` 里包含 DCF、Comps、LBO、三表模型、Excel 审计等多个能力。
+- **垂直插件**：不是单个 Skill，而是按金融业务场景打包的一组 Skill、斜杠命令、hooks 和相关配置。例如 `financial-analysis` 里包含 DCF（折现现金流估值法）、Comps（可比公司分析）、LBO（杠杆收购模型）、三表模型、Excel 审计等多个能力。
 - **Agent 插件**：以一个智能体为中心，通常包含一个 Agent 说明和它常用的一组 Skill。例如 `market-researcher` 负责行业研究，`model-builder` 负责模型构建。
 
 如果你是国企投资人、产业投资人员，或者主要做项目研究、尽调、投决材料和领导汇报，建议先安装下面 6 个。可以把它理解为本中文版的**推荐必装组合**：
 
 | 类型 | 插件/Agent | 为什么建议先装 |
 |---|---|---|
-| 垂直插件 | `financial-analysis` | 核心财务分析能力：Comps、DCF、LBO、三表模型、Pitch Deck 质检、Excel 审计 |
-| 垂直插件 | `investment-banking` | 交易和项目材料能力：CIM、Teaser、流程函、买家列表、并购模型、交易跟踪 |
+| 垂直插件 | `financial-analysis` | 核心财务分析能力：Comps（可比公司分析）、DCF（折现现金流估值法）、LBO（杠杆收购模型）、三表模型、Pitch Deck（推介材料）质检、Excel 审计 |
+| 垂直插件 | `investment-banking` | 交易和项目材料能力：CIM（保密信息备忘录）、Teaser（匿名推介材料）、流程函、买家列表、并购模型、交易跟踪 |
 | 垂直插件 | `equity-research` | 研究分析能力：财报分析、首次覆盖、模型更新、投资论点和催化剂跟踪 |
 | 垂直插件 | `private-equity` | 股权投资工作流：项目源、筛选、尽调清单、投决会备忘录、投后监控 |
 | Agent | `market-researcher` | 行业研究、竞争格局、同业可比、投资想法候选 |
@@ -215,6 +215,25 @@ claude plugin update model-builder@claude-for-financial-services
 帮我研究一下中国精神神经类药物行业
 帮我做恩华药业和人福医药的可比分析
 ```
+
+### 已验证案例：比亚迪 DCF 估值
+
+本套件已用比亚迪（002594.SZ）做过一轮较完整的 A 股 DCF 验证。测试命令：
+
+```text
+/financial-analysis:dcf 比亚迪002594.sz
+```
+
+该案例验证了四件事：
+
+1. 开场明确说明使用 Claude 金融套件中文版的 `/financial-analysis:dcf` 命令组织 DCF 流程；
+2. A 股财务、行情、Beta、可比公司等数据全程优先使用 Wind MCP / Wind MCP Skill，没有先进行 Web Search；
+3. Wind 仅作为数据源，没有触发 Wind 的 `dcf-model` Skill；
+4. Excel 模型中的 DCF 折现、终值、权益桥、每股价值和敏感性表以单元格公式表达，而不是 Python 预先算好后写入静态数字。
+
+最终输出包括：标准项目文件夹、DCF Excel 模型、估值摘要、建模脚本和 Base case 独立校验脚本。测试中的核心判断不是“直接给出买卖建议”，而是暴露比亚迪仍处重资本扩张期、显性期 FCF 和终值占比对估值影响很大，提示 DCF 结果应结合可比倍数和假设敏感性使用。
+
+> 注意：该案例仅用于说明本套件的工作流和模型质量，不构成对比亚迪股票的投资建议。估值结果会随取数日、市场价格、WACC（加权平均资本成本）、Capex、EBITDA Margin 和终值假设变化。
 
 ### 方式二：Cowork 插件安装
 
