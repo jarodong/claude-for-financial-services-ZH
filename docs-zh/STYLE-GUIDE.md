@@ -1,6 +1,6 @@
 # 金融套件中文本土化风格指南
 
-> 本指南用于约束 README、Agent、Skill、Plugin 文档的中文表达。docs-zh/TERMS.md 解决“术语怎么写”，本文件解决“整段文字怎么写”。
+> 本指南用于约束 README、Agent（智能体）、Skill（技能）、Plugin（插件）文档的中文表达。docs-zh/TERMS.md 解决“术语怎么写”，本文件解决“整段文字怎么写”。
 
 ## 一、核心原则
 
@@ -62,7 +62,7 @@
 
 ## 三、AI 产品术语
 
-Agent、Skill、Plugin、MCP、Claude Code 等属于产品或技术名，原则上保留英文；首次出现时加中文解释。
+Agent、Skill、Plugin、MCP（模型上下文协议）、Claude Code 等属于产品或技术名，原则上保留英文；首次出现时加中文解释。
 
 | 英文 | 推荐写法 |
 |------|----------|

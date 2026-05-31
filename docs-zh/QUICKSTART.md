@@ -1,6 +1,6 @@
 # 快速上手
 
-> 按工具类型安装中文版金融套件。先记住一句话：克隆仓库只是下载文件，不等于安装 Skill 或 Agent。
+> 按工具类型安装中文版金融套件。先记住一句话：克隆仓库只是下载文件，不等于安装 Skill（技能）或 Agent（智能体）。
 
 ## 前置条件
 
@@ -90,7 +90,7 @@ cp -R plugins/vertical-plugins/financial-analysis/skills/comps-analysis ~/.claud
 cp -R plugins/vertical-plugins/equity-research/skills/thesis-tracker ~/.claude/skills/
 ```
 
-手动复制 Skill 不等于安装完整插件。它通常不包含 Agent、斜杠命令、hooks 和 MCP 配置。本节保留，主要是为了完整呈现原仓库的 Skill 文件使用方式。
+手动复制 Skill 不等于安装完整插件。它通常不包含 Agent、斜杠命令、hooks 和 MCP（模型上下文协议）配置。本节保留，主要是为了完整呈现原仓库的 Skill 文件使用方式。
 
 ## 方式四：Claude Managed Agents（不推荐，仅作原仓库能力参考）
 
@@ -120,7 +120,7 @@ market-researcher
 model-builder
 ```
 
-然后退出当前 Claude Code 会话并重新打开，再回到 Claude Code 对话界面测试。验证时优先使用带插件命名空间的斜杠命令，不要直接用“帮我计算某某公司的 DCF”这类自然语言做安装验证；如果你同时安装了 Wind 等其他金融 Skill，自然语言可能会触发 Wind 的 `dcf-model`。
+然后退出当前 Claude Code 会话并重新打开，再回到 Claude Code 对话界面测试。验证时优先使用带插件命名空间的斜杠命令，不要直接用“帮我计算某某公司的 DCF（折现现金流估值法）”这类自然语言做安装验证；如果你同时安装了 Wind 等其他金融 Skill，自然语言可能会触发 Wind 的 `dcf-model`。
 
 ```
 /financial-analysis:dcf 牧原食品          # DCF 估值
@@ -154,14 +154,40 @@ claude plugin update model-builder@claude-for-financial-services
 
 不要用“请使用 financial-analysis 插件”这类说法验证。`financial-analysis` 是插件包名称，不是可直接对话调用的 Agent 名称；这样说可能会让 Claude Code 去搜索外部插件市场，甚至触发 42plugin 等其他插件工具。
 
+## 验证案例：比亚迪 DCF
+
+如果你已经配置好 Wind MCP 或 Wind MCP Skill，可以用比亚迪（002594.SZ）做一次较完整验证：
+
+```text
+/financial-analysis:dcf 比亚迪002594.sz
+```
+
+建议先让它做小范围数据通道测试：
+
+```text
+先只做第一步：用 Wind MCP / Wind MCP Skill 获取比亚迪核心财务、行情、估值倍数和风险指标，展示数据源和缺口，暂时不要生成 Excel。
+```
+
+确认数据通道正常后，再继续生成完整 DCF 模型。一个通过验证的案例应至少满足：
+
+1. 开场说明本次使用 `/financial-analysis:dcf` 命令组织 DCF 流程；
+2. A 股数据优先走 Wind MCP / Wind MCP Skill，而不是先 Web Search；
+3. Wind 只是数据来源，没有触发 Wind 的 `dcf-model` Skill；
+4. Excel 里的折现、终值、权益桥、每股价值和敏感性分析是单元格公式；
+5. 交付时说明数据来源、文件路径、公式重算状态和模型风险边界。
+
+比亚迪案例中，模型输出了 DCF Excel、估值摘要、建模脚本和 Base case 独立校验脚本。更重要的是，它没有机械给出单一结论，而是识别出比亚迪处于重资本扩张期，显性期自由现金流和终值占比对估值影响很大，应结合可比倍数和敏感性区间审慎使用。
+
+> 这个案例用于验证金融套件工作流，不构成投资建议。
+
 ## 推荐必装组合
 
 垂直插件不是单个 Skill，而是按金融业务场景打包的一组 Skill、斜杠命令和相关配置。Agent 插件则是一个智能体加它常用的一组 Skill。
 
 | 类型 | 插件/Agent | 用途 |
 |------|------|------|
-| 垂直插件 | financial-analysis | Comps、DCF、LBO、三表模型、Pitch Deck 质检、Excel 审计 |
-| 垂直插件 | investment-banking | CIM、Teaser、流程函、买家列表、并购模型、交易跟踪 |
+| 垂直插件 | financial-analysis | Comps（可比公司分析）、DCF（折现现金流估值法）、LBO（杠杆收购模型）、三表模型、Pitch Deck（推介材料）质检、Excel 审计 |
+| 垂直插件 | investment-banking | CIM（保密信息备忘录）、Teaser（匿名推介材料）、流程函、买家列表、并购模型、交易跟踪 |
 | 垂直插件 | equity-research | 财报分析、首次覆盖、模型更新、投资论点和催化剂跟踪 |
 | 垂直插件 | private-equity | 项目源、筛选、尽调清单、投决会备忘录、投后监控 |
 | Agent | market-researcher | 行业研究、竞争格局、同业可比、投资想法候选 |

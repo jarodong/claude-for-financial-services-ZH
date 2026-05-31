@@ -10,7 +10,7 @@
     {
       "name": "financial-analysis",
       "source": "./plugins/vertical-plugins/financial-analysis",
-      "description": "核心财务建模与分析工具：DCF、可比公司、LBO、三表模型、竞争分析和 Deck 质检"
+      "description": "核心财务建模与分析工具：DCF（折现现金流估值法）、可比公司、LBO（杠杆收购模型）、三表模型、竞争分析和 Pitch Deck（推介材料）质检"
     },
     {
       "name": "investment-banking",
@@ -65,7 +65,7 @@
     {
       "name": "model-builder",
       "source": "./plugins/agent-plugins/model-builder",
-      "description": "DCF、LBO、三表模型、可比公司——在 Excel 中实时构建"
+      "description": "DCF（折现现金流估值法）、LBO（杠杆收购模型）、三表模型、可比公司——在 Excel 中实时构建"
     },
     {
       "name": "gl-reconciler",
@@ -91,16 +91,6 @@
       "name": "statement-auditor",
       "source": "./plugins/agent-plugins/statement-auditor",
       "description": "在分发前审计已生成的 LP 报表"
-    },
-    {
-      "name": "lseg",
-      "source": "./plugins/partner-built/lseg",
-      "description": "使用 LSEG 金融数据和分析工具进行债券定价、收益率曲线分析、外汇套利交易、期权估值和宏观仪表盘构建。"
-    },
-    {
-      "name": "sp-global",
-      "source": "./plugins/partner-built/spglobal",
-      "description": "S&P Global——金融数据和分析技能，包括公司概况、财报预览和交易摘要"
     },
     {
       "name": "claude-for-msft-365-install",
